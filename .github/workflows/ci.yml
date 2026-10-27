@@ -1,0 +1,19 @@
+name: CI
+
+on:
+  push:
+    branches: [ "main" ]
+  pull_request:
+    branches: [ "main" ]
+
+jobs:
+  build-and-test:
+    runs-on: windows-latest
+    steps:
+      - uses: actions/checkout@v4
+      - name: Build with MSVC
+        run: |
+          cl /std:c++20 /EHsc /O2 /Iinclude src/handle_table.cpp src/nt_query.cpp src/main.cpp ntdll.lib /Feringhandle.exe
+          cl /std:c++20 /EHsc /O2 /Iinclude src/handle_table.cpp src/nt_query.cpp tests/test_main.cpp ntdll.lib /Feringhandle_tests.exe
+      - name: Run Tests
+        run: .\ringhandle_tests.exe
