@@ -11,9 +11,13 @@ jobs:
     runs-on: windows-latest
     steps:
       - uses: actions/checkout@v4
+      - name: Enable MSVC Command Prompt
+        uses: ilammy/msvc-dev-cmd@v1
+        with:
+          arch: x64
       - name: Build with MSVC
         run: |
-          cl /std:c++20 /EHsc /O2 /Iinclude src/handle_table.cpp src/nt_query.cpp src/main.cpp ntdll.lib /Feringhandle.exe
-          cl /std:c++20 /EHsc /O2 /Iinclude src/handle_table.cpp src/nt_query.cpp tests/test_main.cpp ntdll.lib /Feringhandle_tests.exe
+          cl /std:c++20 /EHsc /O2 /Iinclude src/handle_table.cpp src/nt_query.cpp src/main.cpp ntdll.lib /Fent_handle_inspector.exe
+          cl /std:c++20 /EHsc /O2 /Iinclude src/handle_table.cpp src/nt_query.cpp tests/test_main.cpp ntdll.lib /Fent_handle_inspector_tests.exe
       - name: Run Tests
-        run: .\ringhandle_tests.exe
+        run: .\nt_handle_inspector_tests.exe
