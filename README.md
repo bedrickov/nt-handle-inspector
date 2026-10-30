@@ -31,3 +31,5 @@ g++ -std=c++20 -O2 -Iinclude src/handle_table.cpp src/nt_query.cpp tests/test_ma
 
 ## Лицензия
 MIT
+
+<!-- verified: 2026-10-30 -->
